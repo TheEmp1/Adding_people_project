@@ -1,50 +1,48 @@
 from time import sleep
-peopleDictionary = {'1111111111': 'Amal', '2222222222': 'Mohammed', '3333333333': 'Khadijah', '4444444444': 'Abdullah', '5555555555': 'Rawan', '6666666666': 'Faisal', '7777777777': 'Layla'}
+
+peopleDictionary = {
+    '1111111111': 'Amal',
+    '2222222222': 'Mohammed',
+    '3333333333': 'Khadijah',
+    '4444444444': 'Abdullah',
+    '5555555555': 'Rawan',
+    '6666666666': 'Faisal',
+    '7777777777': 'Layla'
+}
 
 
+def is_valid_phone_number(phone_number: str) -> bool:
+    return len(phone_number) == 10 and phone_number.isdigit()
 
-def Check_The_Number(phone_number:str) -> bool:
-     return len(phone_number)==10 and phone_number.isdigit()
 
-def Check_The_Dictionary(phone_number:str) -> str:
-    for number in peopleDictionary:
-        if number == phone_number:
-            return peopleDictionary.get(phone_number,False)
+def find_person(phone_number: str) -> str:
+    return peopleDictionary.get(phone_number, 'Number not found')
+
 
 def main() -> None:
-
     while True:
-         if input("Enter ok to add a new person or put anything to continue\n-->").lower()=="ok":
+        if input("Enter 'ok' to add a new person or anything else to continue\n-->").lower() == "ok":
+            name_of_the_person = input("Name of the person -->")
+            person_number = input("Person number -->")
 
-            NameOfThePerson = input("name of the person-->")
-
-            PersonNumber = input("person number -->")
-
-            peopleDictionary.update({ PersonNumber : NameOfThePerson }) 
-         else:
-
-            for number ,name in peopleDictionary.items():
-                print(f"number -->  {number}, name --> {name}")
-            break
-            
-    PersonNumber2 = input(" phone_number ==> ")  
-    
-    if Check_The_Number(PersonNumber2): 
-
-        name_or_False = Check_The_Dictionary(PersonNumber2)    
-
-        if name_or_False : print(name_or_False)
-
+            if is_valid_phone_number(person_number):
+                peopleDictionary[person_number] = name_of_the_person
+            else:
+                print("Invalid number. Please enter a 10-digit number.")
         else:
-            print("Sorry, the number is not found")
+            for number, name in peopleDictionary.items():
+                print(f"Number --> {number}, Name --> {name}")
+            break
+
+    person_number_to_find = input("Enter the phone number to find --> ")
+
+    if is_valid_phone_number(person_number_to_find):
+        result = find_person(person_number_to_find)
+        print(result)
     else:
-        print("This is invalid number")
+        print("Invalid number. Please enter a 10-digit number.")
 
 
-
-
-if __name__=="__main__":
-
-        main()
-        sleep(2)
-
+if __name__ == "__main__":
+    main()
+    sleep(2)
